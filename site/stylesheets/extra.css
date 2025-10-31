@@ -1,0 +1,21 @@
+/* Inline feedback note styling */
+[data-md-component="feedback"] #feedback-inline-note {
+  text-align: center;
+  color: var(--md-default-fg-color);
+  opacity: .9;
+  font-size: .95rem;
+  margin-top: 0.75rem;
+  transition: opacity .25s ease;
+}
+
+[data-md-component="feedback"],
+.md-feedback,
+form.md-feedback {
+  display: block !important;
+  visibility: visible !important;
+}
+
+[data-md-component="feedback"] { margin-top: 2rem; }
+
+/* Comments spacing */
+#comments { margin-top: 2.5rem; }
