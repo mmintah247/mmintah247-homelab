@@ -1,8 +1,10 @@
-name: Enable PR auto-merge on label
+name: Enable PR auto-merge on label (after approval)
 
 on:
   pull_request:
-    types: [labeled, opened, reopened, synchronize, ready_for_review]
+    types: [opened, reopened, synchronize, labeled, ready_for_review]
+  pull_request_review:
+    types: [submitted]   # re-check when reviews arrive
 
 permissions:
   contents: write
@@ -10,25 +12,58 @@ permissions:
 
 jobs:
   enable:
-    # Only for PRs into main AND when the 'automerge' label is present
-    if: >
-      github.event.pull_request.base.ref == 'main' &&
-      contains(github.event.pull_request.labels.*.name, 'automerge') &&
-      !github.event.pull_request.draft
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v7
         with:
           script: |
+            const core = require('@actions/core');
             const { owner, repo, number } = context.issue;
-            const pr = await github.rest.pulls.get({ owner, repo, pull_number: number });
 
-            // Enable auto-merge using GraphQL (requires repo setting "Allow auto-merge")
+            // Fetch PR (labels + node_id)
+            const pr = await github.rest.pulls.get({ owner, repo, pull_number: number });
+            const labels = (pr.data.labels || []).map(l => l.name);
+            const hasLabel = labels.includes('automerge');
+
+            if (!hasLabel) {
+              core.info('No `automerge` label; skipping.');
+              return;
+            }
+
+            // GraphQL: check reviewDecision, draft, base branch
+            const q = `
+              query($owner:String!, $repo:String!, $number:Int!) {
+                repository(owner:$owner, name:$repo) {
+                  pullRequest(number:$number) {
+                    id
+                    isDraft
+                    baseRefName
+                    reviewDecision     # APPROVED | CHANGES_REQUESTED | REVIEW_REQUIRED
+                  }
+                }
+              }`;
+            const data = await github.graphql(q, { owner, repo, number });
+            const prx = data.repository.pullRequest;
+
+            if (prx.baseRefName !== 'main') {
+              core.info('Base is not main; skipping.');
+              return;
+            }
+            if (prx.isDraft) {
+              core.info('PR is draft; skipping.');
+              return;
+            }
+            if (prx.reviewDecision !== 'APPROVED') {
+              core.info(`PR not approved yet (reviewDecision=${prx.reviewDecision}); skipping.`);
+              return;
+            }
+
+            // Enable auto-merge (repo must have "Allow auto-merge" enabled)
             const mutation = `
               mutation($id: ID!) {
                 enablePullRequestAutoMerge(
                   input: { pullRequestId: $id, mergeMethod: SQUASH }
                 ) { clientMutationId }
-              }
-            `;
-            await github.graphql(mutation, { id: pr.data.node_id });
+              }`;
+            await github.graphql(mutation, { id: prx.id });
+            core.info('Auto-merge enabled. GitHub will merge after required checks pass.');
