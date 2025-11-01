@@ -6,6 +6,13 @@ python -m venv .venv && source .venv/bin/activate
 pip install mkdocs-material
 mkdocs serve
 ```
+or
+
+Kill existing process and run
+
+```bash
+lsof -t -i :8000 | xargs kill && mkdocs build --clean && mkdocs serve
+```
 
 Open http://127.0.0.1:8000 to view the site.
 
