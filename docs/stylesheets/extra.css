@@ -15,7 +15,309 @@ form.md-feedback {
   visibility: visible !important;
 }
 
-[data-md-component="feedback"] { margin-top: 2rem; }
+[data-md-component="feedback"] {
+  margin-top: 2rem;
+}
 
-/* Comments spacing */
-#comments { margin-top: 2.5rem; }
+#comments {
+  margin-top: 2.5rem;
+}
+
+.mdx-hero--fullscreen {
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - 10rem);
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  margin-top: -2.4rem;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10%;
+  background-image: url('../assets/images/homelab_hero.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.mdx-hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.mdx-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  text-align: left;
+}
+
+.mdx-hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+  color: #fff;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.mdx-status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #00e676;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00e676;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.mdx-hero__title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  background: linear-gradient(90deg, #00f5ff, #7c4dff, #ff00ff, #00f5ff);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+  letter-spacing: 2px;
+  animation: gradientShift 3s ease infinite, fadeInUp 1s ease-out;
+  filter: drop-shadow(0 0 10px rgba(124, 77, 255, 0.6));
+}
+
+.mdx-hero__subtitle {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 3rem;
+  text-shadow: 0 0 15px rgba(0, 245, 255, 0.4);
+  animation: fadeInUp 1.2s ease-out, pulse-glow 2s ease-in-out infinite;
+  letter-spacing: 1px;
+  font-family: 'JetBrains Mono', 'Courier New', 'Monaco', monospace;
+  font-weight: 400;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    text-shadow: 0 0 15px rgba(0, 245, 255, 0.4);
+  }
+
+  50% {
+    text-shadow: 0 0 25px rgba(0, 245, 255, 0.7), 0 0 35px rgba(124, 77, 255, 0.5);
+  }
+}
+
+.mdx-hero__actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  /* Align buttons left */
+}
+
+/* Scanline Animation */
+.mdx-hero__scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 255, 0.02) 51%, transparent 51%);
+  background-size: 100% 4px;
+  animation: scanlines 0.2s linear infinite;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.3;
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 0 4px;
+  }
+}
+
+/* Futuristic Button Styles */
+.mdx-hero__actions .md-button {
+  position: relative;
+  border-width: 2px;
+  font-weight: bold;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+}
+
+.mdx-hero__actions .md-button--primary {
+  background: linear-gradient(135deg, #00f5ff, #7c4dff, #ff00ff);
+  background-size: 200% 200%;
+  border: 2px solid #00f5ff;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.5),
+    0 0 40px rgba(124, 77, 255, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  animation: gradientMove 3s ease infinite;
+}
+
+.mdx-hero__actions .md-button--primary::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent);
+  transform: rotate(45deg);
+  animation: buttonShine 3s linear infinite;
+}
+
+.mdx-hero__actions .md-button--primary:hover {
+  background: linear-gradient(135deg, #00f5ff, #7c4dff, #ff00ff);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 245, 255, 0.8),
+    0 0 60px rgba(124, 77, 255, 0.6),
+    0 0 80px rgba(255, 0, 255, 0.4),
+    inset 0 0 30px rgba(255, 255, 255, 0.2);
+  border-color: #ff00ff;
+}
+
+@keyframes gradientMove {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes buttonShine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.mdx-hero__actions .md-button:not(.md-button--primary) {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.mdx-hero__actions .md-button:not(.md-button--primary):hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  .mdx-hero--fullscreen {
+    padding: 0 5%;
+  }
+
+  .mdx-hero__content {
+    max-width: 100%;
+  }
+
+  .mdx-hero__status {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mdx-hero__title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .mdx-hero__subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .mdx-hero__actions {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .mdx-hero__actions .md-button {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+}

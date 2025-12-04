@@ -4,7 +4,7 @@ site_url: https://www.mmintah247.com
 repo_url: https://github.com/mmintah247/mmintah247-homelab
 edit_uri: edit/main/docs/
 repo_name: homelab-docs
-copyright: 'Copyright &copy; 2025 MMINTAH247 Contributors'
+copyright: 'Copyright &copy; 2025 MMINTAH247 & Contributors'
 
 theme:
   name: material
@@ -57,12 +57,12 @@ theme:
         name: Switch to system preference
 
 nav:
-  - "🏠 Home": index.md
-  - "🖥️ Homelab":
-      - "🧰 Server Management":
-          - "🧩 Proxmox": Homelab/server-management/proxmox.md
-      - "🐳 Containerization":
-          - "📦 Portainer": Homelab/containerization/portainer.md
+  - Home: index.md
+  - Homelab:
+      - Server Management:
+          - Proxmox: Homelab/server-management/proxmox.md
+      - Containerization:
+          - Portainer: Homelab/containerization/portainer.md
 
 plugins:
   - search
@@ -75,7 +75,7 @@ plugins:
   - git-revision-date-localized:
       type: timeago
       enable_creation_date: true
-      fallback_to_build_date: false  # don't fake timestamps
+      fallback_to_build_date: false 
       strict: true          
   - git-committers:
       branch: main
