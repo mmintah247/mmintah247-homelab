@@ -1,0 +1,135 @@
+site_name: MMINTAH247 - Homelab Docs
+site_description: Knowledge base for my homelab
+site_url: https://www.homelab.mmintah247.com
+repo_url: https://github.com/mmintah247/mmintah247-homelab
+edit_uri: edit/main/docs/
+repo_name: homelab-docs
+copyright: 'Copyright &copy; 2025 MMINTAH247 & Contributors'
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: en
+  font:
+    text: Inter
+    code: JetBrains Mono
+  logo: assets/images/logo.svg
+  favicon: assets/images/favicon.png
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.path
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.instant.progress
+    - toc.follow
+    - content.code.copy
+    - content.action.edit
+    - content.contributors
+    - content.code.annotate
+    - content.feedback
+    - search.suggest
+    - search.highlight
+
+
+  palette:
+
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default 
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+nav:
+  - Home: index.md
+  - Homelab:
+      - Server Management:
+          - Proxmox: Homelab/server-management/proxmox.md
+      - Containerization:
+          - Portainer: Homelab/containerization/portainer.md
+
+plugins:
+  - search
+  - tags
+  - git-authors
+  - minify:
+      minify_html: true
+      minify_css: true
+      minify_js: true
+  - git-revision-date-localized:
+      type: timeago
+      enable_creation_date: true
+      fallback_to_build_date: false 
+      strict: true          
+  - git-committers:
+      branch: main
+      enabled: !ENV [CI, true]  
+      repository: mmintah247/mmintah247-homelab
+      docs_path: docs
+      token: !ENV [MKDOCS_GIT_COMMITTERS_APIKEY, ""]
+
+
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.critic
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.keys
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+       emoji_index: !!python/name:material.extensions.emoji.twemoji
+       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/feedback.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/mmintah247
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/mmintah247
+      name: Follow @mmintah247 on Twitter
+
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX  # keeps feedback working under analytics
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: helpful
+          note: >
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: not-helpful
+          note: >
+            Thanks for your feedback! Help us improve this page by
+            using our <a href="#" target="_blank" rel="noopener">feedback form</a>.
