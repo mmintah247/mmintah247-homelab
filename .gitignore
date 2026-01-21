@@ -1,8 +1,0 @@
-.DS_Store
-*/.DS_Store
-site/
-*/site/
-.vscode
-*/.vscode
-.cache
-*/.cache
