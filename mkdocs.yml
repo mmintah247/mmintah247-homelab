@@ -63,6 +63,8 @@ nav:
           - Proxmox: Homelab/server-management/proxmox.md
       - Containerization:
           - Portainer: Homelab/containerization/portainer.md
+      - Observability & Monitoring:
+          - Grafana & Prometheus: Homelab/observability-monitoring/grafana-prometheus.md
 
 plugins:
   - search
